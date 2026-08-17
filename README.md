@@ -1,6 +1,6 @@
 # Travel World
 
-Travel World is a React app for browsing a small catalog of destinations, filtering them, and keeping a personal trip list. Selected places stay in the itinerary even when the current search or filters hide them from the catalog.
+Travel World is a React app for browsing a large catalog of destinations, filtering them, and keeping a personal trip list. Selected places stay in the itinerary even when the current search or filters hide them from the catalog.
 
 This project is educational. It does not book travel or call a live booking API.
 
@@ -23,12 +23,18 @@ npm run build
 
 `npm test` runs Vitest in jsdom. The tests use the in-repo destination catalog and `localStorage` only. They do not need accounts, tokens, or machine-specific files.
 
+To regenerate the expanded catalog from the seed files:
+
+```bash
+node scripts/generate-catalog.mjs
+```
+
 ## What you can do
 
-- Search destinations by name, country, or description
-- Filter by region, budget, and activity
-- Add destinations to a trip, reorder them, and add a trip name and notes
-- Keep selected destinations in the trip after filters change
-- Read destination details without leaving the catalog
+- Search and filter more than 100 destinations by region, budget, activity, climate, and best month
+- Open a destination dossier with highlights, food, sample days, nearby places, and a month-by-month crowd guide
+- Add destinations to a trip that survives later filters, then reorder or clear it
+- Compare up to three places, build a packing list, estimate stay costs, and keep a journal
+- Read field guides and scan an atlas of catalog pins
 
 Trip details are stored in the browser with `localStorage`.

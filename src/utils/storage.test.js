@@ -7,7 +7,14 @@ describe('trip storage', () => {
   })
 
   it('returns an empty trip when nothing has been saved', () => {
-    expect(loadTrip()).toEqual({ name: '', notes: '', destinationIds: [] })
+    expect(loadTrip()).toEqual({
+      name: '',
+      notes: '',
+      destinationIds: [],
+      journal: [],
+      packingChecked: [],
+      compareIds: [],
+    })
   })
 
   it('round-trips a trip name, notes, and destination ids', () => {
@@ -17,7 +24,7 @@ describe('trip storage', () => {
       destinationIds: ['cusco', 'oaxaca'],
     })
 
-    expect(loadTrip()).toEqual({
+    expect(loadTrip()).toMatchObject({
       name: 'Andes loop',
       notes: 'Arrive a day early',
       destinationIds: ['cusco', 'oaxaca'],
@@ -26,12 +33,26 @@ describe('trip storage', () => {
 
   it('ignores invalid stored JSON instead of throwing', () => {
     window.localStorage.setItem('travel-world.trip.v1', '{not-json')
-    expect(loadTrip()).toEqual({ name: '', notes: '', destinationIds: [] })
+    expect(loadTrip()).toEqual({
+      name: '',
+      notes: '',
+      destinationIds: [],
+      journal: [],
+      packingChecked: [],
+      compareIds: [],
+    })
   })
 
   it('clears a saved trip', () => {
     saveTrip({ name: 'Keep', notes: '', destinationIds: ['kyoto'] })
     clearStoredTrip()
-    expect(loadTrip()).toEqual({ name: '', notes: '', destinationIds: [] })
+    expect(loadTrip()).toEqual({
+      name: '',
+      notes: '',
+      destinationIds: [],
+      journal: [],
+      packingChecked: [],
+      compareIds: [],
+    })
   })
 })

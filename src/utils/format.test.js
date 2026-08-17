@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   formatActivityList,
   formatHiddenCount,
+  formatMoney,
   formatResultCount,
   formatStay,
   formatTripCount,
@@ -37,5 +38,9 @@ describe('format helpers', () => {
     expect(formatHiddenCount(2)).toBe(
       '2 selected destinations are hidden by the current filters.',
     )
+  })
+
+  it('formats a local-currency daily band', () => {
+    expect(formatMoney({ amount: 24000, currency: 'JPY' })).toBe('JPY 24,000')
   })
 })
