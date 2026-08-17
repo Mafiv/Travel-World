@@ -4,6 +4,8 @@ Travel World is a React app for browsing a small catalog of destinations, filter
 
 This project is educational. It does not book travel or call a live booking API.
 
+The GitHub repository should remain **private** if you submit it to a React task workflow that requires a private, original project.
+
 ## Requirements
 
 - Node.js 20
