@@ -13,7 +13,7 @@ import { countHiddenSelected, filterDestinations } from './utils/filterDestinati
 import './App.css'
 
 export default function App() {
-  const { filters, setQuery, updateFilters } = useFilters()
+  const { filters, setQuery, updateFilters, resetFilters } = useFilters()
   const trip = useTrip()
   const [openId, setOpenId] = useState(null)
 
@@ -49,6 +49,7 @@ export default function App() {
               budget={filters.budget}
               activity={filters.activity}
               onChange={updateFilters}
+              onReset={resetFilters}
             />
           </div>
           <StatusBanner

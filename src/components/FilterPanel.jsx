@@ -1,7 +1,13 @@
 import { ACTIVITIES, BUDGETS, REGIONS } from '../data/destinations'
 import { titleCase } from '../utils/format'
 
-export default function FilterPanel({ region, budget, activity, onChange }) {
+export default function FilterPanel({
+  region,
+  budget,
+  activity,
+  onChange,
+  onReset,
+}) {
   return (
     <fieldset>
       <legend className="filter-legend">Filter destinations</legend>
@@ -51,6 +57,11 @@ export default function FilterPanel({ region, budget, activity, onChange }) {
             ))}
           </select>
         </div>
+      </div>
+      <div className="filter-actions card-actions">
+        <button type="button" className="button secondary" onClick={onReset}>
+          Clear filters
+        </button>
       </div>
     </fieldset>
   )
