@@ -5,6 +5,9 @@ const EMPTY_FILTERS = {
   region: 'all',
   budget: 'all',
   activity: 'all',
+  climate: 'all',
+  month: 'all',
+  sort: 'featured',
 }
 
 export default function useFilters() {

@@ -54,3 +54,11 @@ export function formatResultCount(count) {
 
   return `${count} destinations match your filters.`
 }
+
+export function formatMoney(value) {
+  if (!value) {
+    return '—'
+  }
+
+  return `${value.currency} ${Number(value.amount).toLocaleString()}`
+}

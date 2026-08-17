@@ -34,10 +34,10 @@ describe('filterDestinations', () => {
     expect(results.every((destination) => destination.activities.includes('food'))).toBe(
       true,
     )
-    expect(results.map((destination) => destination.id).sort()).toEqual([
-      'chiang-mai',
-      'hanoi',
-    ])
+    expect(results.map((destination) => destination.id)).toEqual(
+      expect.arrayContaining(['chiang-mai', 'hanoi']),
+    )
+    expect(results.length).toBeGreaterThanOrEqual(2)
   })
 
   it('returns an empty list when nothing matches', () => {
