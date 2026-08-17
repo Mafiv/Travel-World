@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Travel World">
+  <circle cx="32" cy="32" r="30" fill="#0f4c5c"/>
+  <ellipse cx="32" cy="32" rx="14" ry="30" fill="none" stroke="#e8dcc8" stroke-width="2"/>
+  <ellipse cx="32" cy="32" rx="30" ry="12" fill="none" stroke="#e8dcc8" stroke-width="2"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#e8dcc8" stroke-width="3"/>
+</svg>
