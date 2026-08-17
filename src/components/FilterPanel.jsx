@@ -1,10 +1,14 @@
-import { ACTIVITIES, BUDGETS, REGIONS } from '../data/destinations'
+import { MONTHS } from '../data/climate'
+import { ACTIVITIES, BUDGETS, CLIMATES, REGIONS } from '../data/destinations'
 import { titleCase } from '../utils/format'
 
 export default function FilterPanel({
   region,
   budget,
   activity,
+  climate,
+  month,
+  sort,
   onChange,
   onReset,
 }) {
@@ -55,6 +59,52 @@ export default function FilterPanel({
                 {titleCase(value)}
               </option>
             ))}
+          </select>
+        </div>
+      </div>
+      <div className="filter-row">
+        <div className="filter-field">
+          <label htmlFor="climate-filter">Climate</label>
+          <select
+            id="climate-filter"
+            value={climate}
+            onChange={(event) => onChange({ climate: event.target.value })}
+          >
+            <option value="all">All climates</option>
+            {CLIMATES.map((value) => (
+              <option key={value} value={value}>
+                {titleCase(value)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-field">
+          <label htmlFor="month-filter">Best month</label>
+          <select
+            id="month-filter"
+            value={month}
+            onChange={(event) => onChange({ month: event.target.value })}
+          >
+            <option value="all">Any month</option>
+            {MONTHS.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-field">
+          <label htmlFor="sort-filter">Sort by</label>
+          <select
+            id="sort-filter"
+            value={sort}
+            onChange={(event) => onChange({ sort: event.target.value })}
+          >
+            <option value="featured">Featured</option>
+            <option value="name">Name</option>
+            <option value="stay">Trip length</option>
+            <option value="budget">Budget</option>
+            <option value="region">Region</option>
           </select>
         </div>
       </div>

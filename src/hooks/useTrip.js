@@ -19,6 +19,18 @@ function moveId(ids, id, offset) {
   return next
 }
 
+function createEntry(draft, items) {
+  const place = items.find((item) => item.id === draft.destinationId)
+  return {
+    id: `journal-${Date.now()}`,
+    title: draft.title.trim(),
+    body: draft.body.trim(),
+    destinationId: draft.destinationId,
+    placeLabel: place ? place.name : 'General',
+    createdAt: new Date().toISOString().slice(0, 10),
+  }
+}
+
 export default function useTrip() {
   const [trip, setTrip] = useState(() => loadTrip())
 
@@ -27,6 +39,8 @@ export default function useTrip() {
   }, [trip])
 
   const selectedIds = useMemo(() => new Set(trip.destinationIds), [trip.destinationIds])
+  const compareIds = useMemo(() => new Set(trip.compareIds), [trip.compareIds])
+  const packingChecked = useMemo(() => new Set(trip.packingChecked), [trip.packingChecked])
 
   const items = useMemo(
     () =>
@@ -34,6 +48,14 @@ export default function useTrip() {
         .map((id) => DESTINATIONS.find((destination) => destination.id === id))
         .filter(Boolean),
     [trip.destinationIds],
+  )
+
+  const compareItems = useMemo(
+    () =>
+      trip.compareIds
+        .map((id) => DESTINATIONS.find((destination) => destination.id === id))
+        .filter(Boolean),
+    [trip.compareIds],
   )
 
   const toggle = useCallback((id) => {
@@ -77,20 +99,89 @@ export default function useTrip() {
     setTrip((current) => ({ ...current, notes }))
   }, [])
 
+  const toggleCompare = useCallback((id) => {
+    setTrip((current) => {
+      const exists = current.compareIds.includes(id)
+      if (exists) {
+        return {
+          ...current,
+          compareIds: current.compareIds.filter((item) => item !== id),
+        }
+      }
+      if (current.compareIds.length >= 3) {
+        return current
+      }
+      return { ...current, compareIds: [...current.compareIds, id] }
+    })
+  }, [])
+
+  const removeCompare = useCallback((id) => {
+    setTrip((current) => ({
+      ...current,
+      compareIds: current.compareIds.filter((item) => item !== id),
+    }))
+  }, [])
+
+  const togglePacked = useCallback((item) => {
+    setTrip((current) => {
+      const exists = current.packingChecked.includes(item)
+      return {
+        ...current,
+        packingChecked: exists
+          ? current.packingChecked.filter((entry) => entry !== item)
+          : [...current.packingChecked, item],
+      }
+    })
+  }, [])
+
+  const addJournal = useCallback((draft) => {
+    setTrip((current) => {
+      const itemsNow = current.destinationIds
+        .map((id) => DESTINATIONS.find((destination) => destination.id === id))
+        .filter(Boolean)
+      return {
+        ...current,
+        journal: [createEntry(draft, itemsNow), ...current.journal],
+      }
+    })
+  }, [])
+
+  const deleteJournal = useCallback((id) => {
+    setTrip((current) => ({
+      ...current,
+      journal: current.journal.filter((entry) => entry.id !== id),
+    }))
+  }, [])
+
   const clear = useCallback(() => {
-    setTrip({ name: '', notes: '', destinationIds: [] })
+    setTrip({
+      name: '',
+      notes: '',
+      destinationIds: [],
+      journal: [],
+      packingChecked: [],
+      compareIds: [],
+    })
   }, [])
 
   return {
     trip,
     items,
+    compareItems,
     selectedIds,
+    compareIds,
+    packingChecked,
     toggle,
     remove,
     moveUp,
     moveDown,
     setName,
     setNotes,
+    toggleCompare,
+    removeCompare,
+    togglePacked,
+    addJournal,
+    deleteJournal,
     clear,
   }
 }
