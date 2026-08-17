@@ -1,8 +1,32 @@
-# React + Vite
+# Travel World
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Travel World is a React app for browsing a small catalog of destinations, filtering them, and keeping a personal trip list. Selected places stay in the itinerary even when the current search or filters hide them from the catalog.
 
-Currently, two official plugins are available:
+This project is educational. It does not book travel or call a live booking API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requirements
+
+- Node.js 20
+- npm (the repository includes `package-lock.json` and no other lockfile)
+
+## Scripts
+
+```bash
+npm ci
+npm run dev
+npm test
+npm run lint
+npm run build
+```
+
+`npm test` runs Vitest in jsdom. The tests use the in-repo destination catalog and `localStorage` only. They do not need accounts, tokens, or machine-specific files.
+
+## What you can do
+
+- Search destinations by name, country, or description
+- Filter by region, budget, and activity
+- Add destinations to a trip, reorder them, and add a trip name and notes
+- Keep selected destinations in the trip after filters change
+- Read destination details without leaving the catalog
+
+Trip details are stored in the browser with `localStorage`.
